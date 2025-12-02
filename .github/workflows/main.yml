@@ -1,13 +1,16 @@
-name: Flutter Android Build
+name: Build Flutter APK
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Setup Flutter
@@ -15,10 +18,10 @@ jobs:
         with:
           flutter-version: 'stable'
 
-      - name: Flutter Pub Get
+      - name: Install dependencies
         run: flutter pub get
 
-      - name: Build APK
+      - name: Build Release APK
         run: flutter build apk --release
 
       - name: Upload APK
